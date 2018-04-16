@@ -1,0 +1,148 @@
+<div>
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">Manage Tasks</div>
+			<div class="panel-body">
+				<form ng-submit="ctrl.submit()" name="myForm">
+					<div class="alert {{ctrl.alert.type}} " style="display: none;">
+						<p>
+							<a class="close" aria-label="close">&times;</a>
+						</p>
+						<strong>{{ctrl.alert.msg}}</strong>
+					</div>
+
+					<div class="form-group col-group">
+						<label for="project">Select Project :</label> 
+						<select class="form-control" name="project" ng-model="ctrl.task.projectname">
+							<option>Employee Info System</option>
+							<option>Employee Attendance Sytem</option>
+							<option>Employee Payroll System</option>
+						</select>
+					</div>
+
+					<div class="form-group col-group">
+						<label for="taskdescription">Enter Task Description :</label>
+						<input type="text" name="taskdescription" class="form-control" autocomplete="off"
+							id="taskdescription" ng-model="ctrl.task.taskdescription" />
+					</div>
+
+					<div class="form-group col-group">
+						<label for="assignee">Select Assignee :</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
+							<select class="form-control" id="assignee" name="assignee" ng-model="ctrl.task.assignto">
+								<option>Prajakta prajakta.salunkhe@gmail.com</option>
+								<option>Richa richa.pardeshi@gmail.com</option>
+								<option>Pranav pranav.joshi@gmail.com</option>
+							</select>
+						</div>
+					</div>
+
+
+					<div class="form-group col-group">
+						<label for="startdate">Select Start Date :</label>
+						<div class='input-group date' id='startdate'>
+							<input type='text' name="startdate" data-date-format="yyyy-mm-dd" autocomplete="off"
+								class="form-control" ng-model="ctrl.task.startdate" /> 
+							<span class="input-group-addon"> 
+							<span class="glyphicon glyphicon-calendar"></span> 
+							</span>
+						</div>
+					</div>
+
+					<div class="form-group col-group">
+						<label for="startdate">Select End Date :</label>
+						<div class='input-group date' id='enddate'>
+							<input type='text' name="enddate" data-date-format="yyyy-mm-dd" autocomplete="off"
+								class="form-control" ng-model="ctrl.task.enddate" /> 
+								<span class="input-group-addon"> 
+								<span class="glyphicon glyphicon-calendar"> </span>
+							</span>
+						</div>
+					</div>
+
+					<div class="form-group col-group">
+						<label for="status">Select Status :</label> <select
+							class="form-control" id="status" name="status"
+							ng-model="ctrl.task.status">
+							<option>Pending</option>
+							<!-- <option>Work In Progress</option> -->
+							<option>Completed</option>
+						</select>
+					</div>
+
+					<div class="form-group col-group" style="width: 100%">
+						<div class="form-actions floatRight">
+							<input type="submit" value="{{!ctrl.task.id ? 'Add' : 'Update'}}" 
+								class="btn btn-default btn-sm"
+								ng-disabled="myForm.$invalid || myForm.$pristine"/>
+
+							<button id="resetbtn" class="btn btn-default btn-sm"
+								type="button" ng-disabled="myForm.$pristine"
+								ng-click="ctrl.reset()">Reset Form</button>
+
+						</div>
+					</div>
+
+					<div class="table-responsive" ng-show="ctrl.tasks.length != 0">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+
+									<th>Id</th>
+									<th>Project Name</th>
+									<th>Task Description</th>
+									<th>Assignee</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+									<th>Status</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="u in ctrl.getAlltasks()">
+
+									<td>{{u.id}}</td>
+									<td>{{u.projectname}}</td>
+									<td>{{u.taskdescription}}</td>
+									<td>{{u.assignto}}</td>
+									<td>{{u.startdate}}</td>
+									<td>{{u.enddate}}</td>
+									<td>{{u.status}}</td>
+									<td><button type="button" ng-click="ctrl.edittask(u.id)"
+											class="btn btn-default custom-width">Edit</button></td>
+
+									<td><button type="button" ng-click="ctrl.removetask(u.id)"
+											class="btn btn-default custom-width">Remove</button></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function() {
+		$('#startdate').datetimepicker({
+			format : 'dd-mm-yyyy',
+			setDaysOfWeekDisabled : [ 0, 6 ],
+			autoclose : true,
+			minView : 2
+		});
+		$('#enddate').datetimepicker({
+			format : 'dd-mm-yyyy',
+			setDaysOfWeekDisabled : [ 0, 6 ],
+			autoclose : true,
+			minView : 2
+		});
+
+		$(".alert a").click(function() {
+
+			$(".alert").hide();
+		});
+
+	});
+</script>

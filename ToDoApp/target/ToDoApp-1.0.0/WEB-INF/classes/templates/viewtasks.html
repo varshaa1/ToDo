@@ -1,0 +1,111 @@
+<div>
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">View Tasks</div>
+			<div class="panel-body">
+				<form ng-submit="ctrl.searchtask()" name="myForm">
+
+					<div class="alert {{ctrl.alert.type}} " style="display: none;">
+						<p>
+							<a class="close" aria-label="close">&times;</a>
+						</p>
+						<strong>{{ctrl.alert.msg}}</strong>
+					</div>
+					<div class="form-group col-group">
+						<label for="fromdate">Select From Date :</label>
+						<div class='input-group date' id='fromdate'>
+							<input type='text' name="fromdate" data-date-format="yyyy-mm-dd" autocomplete="off"
+								class="form-control" ng-model="ctrl.task.fromDate" /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"> </span>
+							</span>
+						</div>
+					</div>
+
+					<div class="form-group col-group">
+						<label for="todate">Select To Date :</label>
+						<div class='input-group date' id='todate'>
+							<input type='text' name="todate" data-date-format="yyyy-mm-dd" autocomplete="off"
+								class="form-control" ng-model="ctrl.task.toDate" /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"> </span>
+							</span>
+						</div>
+					</div>
+
+					<div class="form-group col-group">
+						<label for="status">Select Status :</label> <select
+							class="form-control" name="status" id="status"
+							ng-model="ctrl.task.status">
+							
+							<option>Pending</option>
+							<option>Completed</option>
+						</select>
+					</div>
+
+					<div class="form-group col-group" style="width: 100%">
+						<div class="form-actions floatRight">
+							<input type="submit" value="Search"
+								class="btn btn-default btn-sm" ng-disabled="myForm.$pristine" />
+
+							<button id="resetbtn" class="btn btn-default btn-sm"
+								type="button" ng-disabled="myForm.$pristine"
+								ng-click="ctrl.reset()">Reset Search</button>
+
+						</div>
+					</div>
+
+
+					<div class="table-responsive" ng-show="ctrl.tasks.length != 0">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Project Name</th>
+									<th>Task Description</th>
+									<th>Assignee</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+									<th>Status</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="u in ctrl.getAlltasks()" ng-class="{'alert alert-success': u.status == 'Completed'}">
+									<td>{{u.id}}</td>
+									<td>{{u.projectname}}</td>
+									<td>{{u.taskdescription}}</td>
+									<td>{{u.assignto}}</td>
+									<td>{{u.startdate}}</td>
+									<td>{{u.enddate}}</td>
+									<td>{{u.status}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function() {
+		$('#fromdate').datetimepicker({
+			format : 'dd-mm-yyyy',
+			setDaysOfWeekDisabled : [ 0, 6 ],
+			autoclose : true,
+			minView : 2
+		});
+		$('#todate').datetimepicker({
+			format : 'dd-mm-yyyy',
+			setDaysOfWeekDisabled : [ 0, 6 ],
+			autoclose : true,
+			minView : 2
+		});
+
+		$(".alert a").click(function() {
+
+			$(".alert").hide();
+		});
+	});
+</script>

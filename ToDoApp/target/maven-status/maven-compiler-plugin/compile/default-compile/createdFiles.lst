@@ -1,0 +1,11 @@
+com\todo\controller\TaskController.class
+com\todo\configuration\JpaConfiguration.class
+com\todo\controller\PageController.class
+com\todo\ToDoApp.class
+com\todo\model\TaskDetails.class
+com\todo\helper\BeanHelper.class
+com\todo\service\TaskServiceImpl.class
+com\todo\util\CustomErrorType.class
+com\todo\service\TaskService.class
+com\todo\repositories\TaskRepository.class
+com\todo\vo\TaskDetailsVO.class
